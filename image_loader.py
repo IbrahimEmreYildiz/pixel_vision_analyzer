@@ -9,6 +9,7 @@ class ImageLoader:
 
 
 
+
     def loadFromFile(self):
         with open ("image.txt", mode='r', encoding='UTF-8') as file:
             py_list=file.readlines()
@@ -23,3 +24,7 @@ class ImageLoader:
 
 
 
+    
+    def generateRandom(self,row,column):          
+        generate_array = np.random.randint(0,256,(row,column)) 
+        return generate_array   
