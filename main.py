@@ -14,46 +14,56 @@ analyzer.brightnessCalculator()
 
 
 while True:
-    select = int(input("\n*******MENU*******\n1-Show analyze results\n2-Quit\nChoose one of them: "))
-    if select==2:
-        print("\nTerminating the Application")
-        break
-    elif select==1:
-        choice=int(input("\nWill you load from file or use generate random(1: Load from file - 2: Use generate random): "))
-        if choice==1:
-            loader = ImageLoader()
-            obj=loader.loadFromFile()
-            analyzer = Analyze(obj)
+    try:
+        select = int(input("\n*******MENU*******\n1-Show analyze results\n2-Quit\nChoose one of them: "))
+        if select==2:
+            print("\nTerminating the Application")
+            break
+        elif select==1:
+            choice=int(input("\nWill you load from file or use generate random(1: Load from file - 2: Use generate random): "))
+            if choice==1:
+                loader = ImageLoader()
+                obj=loader.loadFromFile()
+                analyzer = Analyze(obj)
             
-            print("\nBrightness: ", analyzer.brightnessCalculator())
-            if analyzer.classifyLight():
-                print("\nPicture is lighter.")
+                print("\nBrightness: ", analyzer.brightnessCalculator())
+                if analyzer.classifyLight():
+                    print("\nPicture is lighter.")
+                else:
+                    print("\nPicture is darker.")
+            
+                print("\nEdge Count: ", len(analyzer.edgeDetector()))
+
+                print("\nEdge Pixels Coordinates: ", analyzer.edgeDetector())
+
+
+
+            
+            elif choice==2:
+                rows=int(input("Please enter the number of rows: "))
+                cols=int(input("Please enter the number of cols: "))
+                loader = ImageLoader()
+                obj=loader.generateRandom(rows,cols)
+                analyzer = Analyze(obj)
+            
+                print("\nBrightness: ", analyzer.brightnessCalculator())
+                if analyzer.classifyLight():
+                    print("\nPicture is lighter.")
+                else:
+                    print("\nPicture is darker.")
+            
+                print("\nEdge Count: ", len(analyzer.edgeDetector()))
+
+                print("\nEdge Pixels Coordinates: ", analyzer.edgeDetector())
             else:
-                print("\nPicture is darker.")
-            
-            print("\nEdge Count: ", len(analyzer.edgeDetector()))
-
-            print("\nEdge Pixels Coordinats: ", analyzer.edgeDetector())
-
-
-
-            
-        elif choice==2:
-            rows=int(input("Please enter the number of rows: "))
-            cols=int(input("Please enter the number of cols: "))
-            loader = ImageLoader()
-            obj=loader.generateRandom(rows,cols)
-            analyzer = Analyze(obj)
-            
-            print("\nBrightness: ", analyzer.brightnessCalculator())
-            if analyzer.classifyLight():
-                print("\nPicture is lighter.")
-            else:
-                print("\nPicture is darker.")
-            
-            print("\nEdge Count: ", len(analyzer.edgeDetector()))
-
-            print("\nEdge Pixels Coordinats: ", analyzer.edgeDetector())
+                print("\nPlease just write 1 or 2!!!")
+        else:
+            print("\nPlease just write 1 or 2!!!")
+    except ValueError:
+        print("\n[Error] Invalid input! Please enter numeric values only.")
+        
+    except Exception as e:
+        print(f"\n[Unexpected Error] An error occurred: {e}")
 
 
 
