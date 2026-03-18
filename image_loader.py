@@ -23,7 +23,3 @@ class ImageLoader:
 
 
 
-    
-    def generateRandom(self,row,column):          
-        generate_array = np.random.randint(0,256,(row,column)) 
-        return generate_array   
